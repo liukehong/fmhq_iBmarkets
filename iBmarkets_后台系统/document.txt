@@ -1,0 +1,8 @@
+1.代码地址
+/usr/share/nginx/IB
+
+2.后台线上地址
+管理员
+https://www.ib-markets.com/#/admin_login
+用户
+https://www.ib-markets.com/#/login

@@ -1,0 +1,216 @@
+<template>
+  <div style="overflow: hidden;" class="mt4_account_money">
+    <div class="item_title">
+      <!-- MT4提币 -->
+      <div style="float:left;">{{ $t('title.MT4Money') }}</div>
+      <div class="changeoutType" style="float:right;">
+        <!-- 货币 -->
+        <span
+          :class="outType=='coin'?'active':''"
+          @click="outType='coin'"
+        >{{ $t('mt4Account.text5') }}</span>
+        <!-- 银行卡 -->
+        <span
+          :class="outType=='bank'?'active':''"
+          @click="outType='bank'"
+        >{{ $t('mt4Account.text6') }}</span>
+      </div>
+    </div>
+    <div class="item_box">
+      <div class="item_list_box">
+        <el-row>
+          <el-col
+            class="col-item"
+            :span="24"
+            :xs="24"
+            :sm="24"
+            :md="24"
+            :lg="12"
+            :xl="12"
+            v-if="outType == 'coin'"
+          >
+            <el-form
+              :label-position="screenSize == 1?'left':'top'"
+              :model="ruleForm"
+              ref="ruleForm"
+              label-width="1.5rem"
+              class="demo-ruleForm item_form"
+            >
+              <!-- 类型 -->
+              <el-form-item :label="$t('form.type')">
+                <el-radio-group v-model="ruleForm.receiptType" @change="fnSelectChange">
+                  <el-radio :label="1">BTC</el-radio>
+                  <el-radio :label="2">ETH</el-radio>
+                  <el-radio :label="3">USDT</el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <!-- 收款地址 -->
+              <el-form-item :label="$t('form.coinAddress')" prop="receiptAddress">
+                <el-input
+                  size="small"
+                  :placeholder="$t('form.coinAddress')"
+                  v-model="ruleForm.receiptAddress"
+                ></el-input>
+              </el-form-item>
+              <!-- 金额 -->
+              <el-form-item :label="$t('form.money')">
+                <el-input-number
+                  size="small"
+                  v-model="ruleForm.money"
+                  :min="0"
+                  :label="$t('form.money')"
+                ></el-input-number>
+              </el-form-item>
+              <!-- 交易密码 -->
+              <el-form-item :label="$t('form.transactionPassword')" prop="payPassword">
+                <el-input
+                  type="password"
+                  size="small"
+                  :placeholder="$t('form.transactionPassword')"
+                  v-model="ruleForm.payPassword"
+                ></el-input>
+              </el-form-item>
+              <el-form-item>
+                <!-- 确认提币 -->
+                <el-button
+                  size="small"
+                  style="width: 100%;"
+                  type="success"
+                  @click="submitForm('ruleForm')"
+                >{{ $t('btn.sureMoney') }}</el-button>
+              </el-form-item>
+            </el-form>
+          </el-col>
+          <el-col
+            class="col-item"
+            :span="24"
+            :xs="24"
+            :sm="24"
+            :md="24"
+            :lg="10"
+            :xl="10"
+            v-if="outType == 'bank'"
+          >
+            <Bank></Bank>
+          </el-col>
+        </el-row>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import WatchScreen from "@/mixins/watchScreen.js";
+import MyValidate from "@/mixins/myValidate.js";
+import MessageBox from "@/mixins/messageBox.js";
+import Bank from "./bank";
+export default {
+  name: "mt4_account_money",
+  mixins: [WatchScreen, MyValidate, MessageBox],
+  inject: ["p", "$main"],
+  components: {
+    Bank
+  },
+  data() {
+    return {
+      outType: "coin", // coin  bank
+      user: {
+        mobile: "" // 手机号
+      },
+      ruleForm: {
+        userMatchingId: "", // 配套id
+        money: "", // 金额
+        receiptType: 1, // 类型
+        payPassword: "", // 支付密码
+        receiptAddress: "" // 收款地址
+      },
+      rules: {
+        payPassword: [
+          // 请输入支付密码
+          {
+            required: true,
+            message: "form.transactionPassword_reg",
+            trigger: "blur"
+          }
+        ],
+        receiptAddress: [
+          // 请输入地址
+          { required: true, message: "form.coinAddress_reg", trigger: "blur" }
+        ]
+      }
+    };
+  },
+  mounted: function() {
+    let vm = this;
+    vm.fnInit();
+  },
+  methods: {
+    fnInit() {
+      let vm = this;
+      let infoName = "user_info";
+      if (this.$route.matched[0].name == "admin") {
+        // 管理员
+        infoName = "admin_info";
+      } else {
+        // 普通用户
+        infoName = "user_info";
+      }
+      let userInfo = JSON.parse(window.localStorage.getItem(infoName));
+      if (vm.ruleForm.receiptType == 1) {
+        vm.ruleForm.receiptAddress = userInfo.btcAddress;
+      } else if (vm.ruleForm.receiptType == 2) {
+        vm.ruleForm.receiptAddress = userInfo.ethAddress;
+      } else {
+        vm.ruleForm.receiptAddress = userInfo.usdtAddress;
+      }
+    },
+    // 类型变化
+    fnSelectChange(val) {
+      let vm = this;
+      vm.fnInit();
+    },
+    // 表单提交
+    submitForm(formName) {
+      let vm = this;
+      let params;
+      vm.myValidate(formName).then(err => {
+        if (!!!err) {
+          params = Object.assign({}, vm.ruleForm);
+          params.userMatchingId = vm.p.matchingData.userMatchingId;
+          vm.$main.loading = true;
+          vm.$api.MATCHING_REFUND(params).then(res => {
+            vm.$main.loading = false;
+            if (res.code == 0) {
+              vm.fnOpenMessageBox(vm.$t("alert.text7"), "success");
+            } else {
+              vm.fnOpenMessageBox(vm.$t(`error.${res.code}`), "error");
+            }
+          });
+        } else {
+          vm.fnOpenMessageBox(err, "error");
+        }
+      });
+    }
+  }
+};
+</script>
+
+<style scoped lang="scss">
+.mt4_account_money {
+  .changeoutType {
+    span {
+      font-size: 0.12rem !important;
+      padding: 5px 10px;
+      margin-left: 5px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #000;
+      background: rgba(212, 216, 221, 1);
+    }
+  }
+  .active {
+    background: rgba(24, 75, 139, 1) !important;
+    color: #fff !important;
+  }
+}
+</style>
