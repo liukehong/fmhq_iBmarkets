@@ -114,19 +114,7 @@ export default {
   }
 };
 </script>
-
 <style lang="scss">
-.changePassType {
-  span {
-    font-size: 0.12rem !important;
-    padding: 5px 10px;
-    margin-left: 5px;
-    border-radius: 8px;
-    cursor: pointer;
-    color: #000;
-    background: #dee5f1;
-  }
-}
 .user_manage_password {
   .active {
     background: rgba(24, 75, 139, 1) !important;

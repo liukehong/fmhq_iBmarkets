@@ -23,7 +23,7 @@
               :lg="10"
               :xl="6"
             >
-              <div class="aItem" :class="item.type" @click="walletType = item.type">
+              <div class="aItem" :class="walletType==item.type?[item.type,'active2']:[item.type,'']"  @click="walletType = item.type">
                 <div class="right_icon" :class="walletType==item.type?'active':''"></div>
                 <p>{{ item.name }}</p>
                 <p>${{ item.money|FORMATTED_NUMBER }}</p>
@@ -198,6 +198,9 @@ export default {
 </script>
 <style scoped lang="scss">
 .transfer_manage {
+  .active2{
+    border: 2px dotted red;
+  }
   .paylist1 {
     margin-bottom: 0.2rem;
     .col-item {
@@ -216,7 +219,7 @@ export default {
           right: 0.1rem;
           top: 50%;
           transform: translateY(-50%);
-          background: url("../../../../image/golden_icon1.png");
+          background: url("../../../../../static/image/golden_icon1.png");
           background-size: contain;
           display: none;
         }

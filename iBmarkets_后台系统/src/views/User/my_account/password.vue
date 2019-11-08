@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow: hidden;">
+  <div style="overflow: hidden;" class="my_account_password">
     <div class="item_title">
       <!-- 修改密码 -->
       <div style="float:left;">{{ $t('title.password') }}</div>
@@ -86,7 +86,7 @@ import GetCode from "@/components/GetCode";
 import MyValidate from "@/mixins/myValidate.js";
 import MessageBox from "@/mixins/messageBox.js";
 export default {
-  name: "my_account",
+  name: "my_account_password",
   mixins: [WatchScreen, GetUserInfo, MyValidate, MessageBox],
   inject: ["$main"],
   data() {
@@ -151,19 +151,21 @@ export default {
 </script>
 
 <style lang="scss">
-.changePassType {
-  span {
-    font-size: 0.12rem !important;
-    padding: 5px 10px;
-    margin-left: 5px;
-    border-radius: 8px;
-    cursor: pointer;
-    color: #000;
-    background: #dee5f1;
+.my_account_password {
+  .changePassType {
+    span {
+      font-size: 0.12rem !important;
+      padding: 5px 10px;
+      margin-left: 5px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #000;
+      background: #dee5f1;
+    }
   }
-}
-.active {
-  background: rgba(24, 75, 139, 1) !important;
-  color: #fff !important;
+  .active {
+    background: rgba(24, 75, 139, 1) !important;
+    color: #fff !important;
+  }
 }
 </style>
