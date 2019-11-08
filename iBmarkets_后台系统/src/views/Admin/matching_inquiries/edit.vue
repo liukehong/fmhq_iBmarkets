@@ -58,7 +58,6 @@ export default {
   },
   mounted() {
     let vm = this;
-    console.log(vm.p.info);
   },
   methods: {
     // 表单提交

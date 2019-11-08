@@ -55,8 +55,6 @@ export default function $axios(options) {
 	
 					// config.data = qs.stringify(config.data)
 				} */
-				// debugger
-				// console.log(options,11122)
 				if (config.method.toLocaleLowerCase() === 'post') {
 					config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 					if (!!options.type && options.type == 'blob') {

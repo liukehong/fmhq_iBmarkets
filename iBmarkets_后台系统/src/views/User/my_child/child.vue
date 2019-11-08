@@ -191,7 +191,6 @@ export default {
   mounted: function () {
     let vm = this;
     vm.$api.USER_USERUPGRADEINFO().then(res=>{
-      console.log(res);
       vm.gradeNumber = res.data.gradeNumber;
       vm.gradeMoney = res.data.gradeMoney;
       vm.number = res.data.number;

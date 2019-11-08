@@ -152,8 +152,6 @@
                 <el-option :label="$t('admin_memberList.text3')" :value="2"></el-option>
               </el-select>
             </el-form-item>
-
-
             <!-- 直推收益 -->
             <el-form-item :label="$t('table.profit')">
               <el-input-number
@@ -180,7 +178,6 @@
                 :max="7"
               ></el-input-number>
             </el-form-item>
-
             <el-form-item>
               <!-- 提交 -->
               <el-button
@@ -203,7 +200,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import Upload from "@/components/Upload";
 import WatchScreen from "@/mixins/watchScreen.js";
