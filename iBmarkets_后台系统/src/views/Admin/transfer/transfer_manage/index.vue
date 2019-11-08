@@ -54,7 +54,6 @@
                     style="width: 100%;"
                     size="small"
                     v-model="ruleForm.transferMoney"
-                    :min="0"
                     :label="$t('form.money')"
                   ></el-input-number>
                 </el-form-item>
