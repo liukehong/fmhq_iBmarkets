@@ -42,21 +42,21 @@
                   <el-scrollbar style="height: 100%;">
                   <span style="color:rgb(9, 79, 247); padding-right: 10px;">{{ data.name }}</span>
                   <!-- 下级总数 -->
-                  <span style="font-size: .12rem; padding-right: 10px;">{{ $t('Child.text4') }}：{{ data.numberPeople }}</span>
-                  <span style="font-size: .12rem; padding-right: 10px;">{{ TYPE(data.gradeId) }}</span>
+                  <span style="font-size: .13rem; padding-right: 10px;">{{ $t('Child.text4') }}：{{ data.numberPeople }}</span>
+                  <span style="font-size: .13rem; padding-right: 10px;">{{ TYPE(data.gradeId) }}</span>
                   <!-- 加入时间 -->
-                  <span style="font-size: .12rem; padding-right: 10px;">{{ $t('Child.text8') }}：{{ data.createTime||'--' }}</span>
+                  <span style="font-size: .13rem; padding-right: 10px;">{{ $t('Child.text8') }}：{{ data.createTime||'--' }}</span>
                   <!-- 业绩 -->
                   <span
-                    style="font-size: .12rem; padding-right: 10px; color:rgb(181, 202, 230);"
+                    style="font-size: .13rem; padding-right: 10px; color:#fff;"
                   >{{ $t('Child.text5') }}：{{ data.performance||'--' }}</span>
                   <!-- 团队总业绩 -->
                   <span
-                    style="font-size: .12rem; padding-right: 10px; color:rgb(181, 202, 230);"
+                    style="font-size: .13rem; padding-right: 10px; color:#fff;"
                   >{{ $t('Child.text6') }}：{{ data.totalPerformance||'--' }}</span>
                   <!-- 配套等级 -->
                   <span
-                    style="font-size: .12rem; padding-right: 10px; color:rgb(181, 202, 230);"
+                    style="font-size: .13rem; padding-right: 10px; color:#fff;"
                   >{{ $t('Child.text7') }}：{{ data.highestMatchingId||'--' }}</span>
                   </el-scrollbar>
                 </span>

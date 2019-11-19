@@ -115,6 +115,14 @@
   border: none !important;
 }
 
+.el-tree .el-tree-node .el-tree-node__expand-icon.is-leaf {
+  color: #fff !important;
+}
+
+.el-tree .el-tree-node .el-tree-node__expand-icon {
+  color: #fff !important;
+}
+
 /* =========================折叠面板=========== */
 .el-collapse-item__header.is-active {
   border-bottom-color: transparent;

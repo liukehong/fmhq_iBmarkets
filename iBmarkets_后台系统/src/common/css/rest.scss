@@ -151,9 +151,12 @@ $shade_border: #275F99!important; // 下拉框的背景边框色
         }
       }
   
-      // .el-tree-node__expand-icon.is-leaf{
-      //   color:#fff;
-      // }
+      .el-tree-node__expand-icon.is-leaf{
+        color:#fff!important;
+      }
+      .el-tree-node__expand-icon{
+          color: #fff!important;
+      }
     }
   }
 
