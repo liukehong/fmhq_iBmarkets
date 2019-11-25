@@ -1,6 +1,6 @@
 <template>
   <el-row class="time_label">
-    <el-col :span="24" :xs="24" :sm="7" :md="5" :lg="3">
+    <el-col :span="24" :xs="24" :sm="sm?sm:7" :md="md?md:5" :lg="lg?lg:3">
       <!-- 开始日期 -->
       <el-date-picker
       size="small"
@@ -14,7 +14,7 @@
     </el-col>
     <!-- 至 -->
     <el-col :span="24" class="hidden-xs-only history_to" :sm="1" style="text-align:center; line-height: 30px; color: #606266;">{{ $t('common.to') }}</el-col>
-    <el-col :span="24" :xs="24" :sm="7" :md="5" :lg="3">
+    <el-col :span="24" :xs="24" :sm="sm?sm:7" :md="md?md:5" :lg="lg?lg:3">
       <!-- 结束日期 -->
       <el-date-picker
       size="small"
@@ -34,7 +34,7 @@
 import 'element-ui/lib/theme-chalk/display.css';
 export default {
   name: "TableDate",
-  props: ['format'],
+  props: ['format','sm','md','lg'],
   data() {
     return {
       params: {
@@ -66,7 +66,8 @@ export default {
       if (!!!val) {
         vm.params.startTime = "";
         vm.params.endTime = "";
-        // vm.fnGetData();
+        vm.$emit("changeDate", vm.params);
+      }else if(!!val&&!!vm.params.endTime){
         vm.$emit("changeDate", vm.params);
       }
     },

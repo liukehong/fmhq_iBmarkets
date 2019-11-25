@@ -12,8 +12,12 @@
         </el-col>
       </el-row>
       <el-row>
+        <!-- 业绩查询 -->
+        <el-col style="margin-bottom: 10px; padding-right: 20px;" :class="screenSize == 1?'':'p_r'" class="col-item" :span="24" :xs="24" :sm="24" :md="24" :lg="24" :xl="12">
+            <Performance></Performance>
+        </el-col>
         <!-- 我的团队 -->
-        <el-col style="margin-bottom: 10px;" :class="screenSize == 1?'':'p_r'" class="col-item" :span="24" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+        <el-col style="margin-bottom: 10px;" :class="screenSize == 1?'':'p_r'" class="col-item" :span="24" :xs="24" :sm="24" :md="24" :lg="24" :xl="12">
             <Child></Child>
         </el-col>
       </el-row>
@@ -26,6 +30,8 @@ import WatchScreen from "@/mixins/watchScreen.js";
 import Child from './child';
 import Invite from './invite';
 import Grade from './grade';
+import Performance from './performance';
+import List from './list';
 export default {
   mixins: [WatchScreen],
   name: "my_child_index",
@@ -36,7 +42,9 @@ export default {
   components: {
       Child,
       Invite,
-      Grade
+      Grade,
+      Performance,
+      List,
   },
   methods: {
   }

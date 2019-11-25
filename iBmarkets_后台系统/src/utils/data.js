@@ -20,7 +20,7 @@ const data = {
             default:
                 return "http://192.168.1.123:8088"
         }
-    })(0),
+    })(1),
     path: (function (num) {
         switch (num) {
             case 0:

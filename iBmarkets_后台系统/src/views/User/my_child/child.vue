@@ -4,7 +4,7 @@
     <div class="item_title">{{ $t('title.myTeam') }}</div>
     <div class="item_box">
       <el-row v-loading="loading" element-loading-background="rgba(0, 0, 0, 0.8)">
-        <el-col :span="24" :xs="24" :sm="24" :md="24" :lg="24" :xl="12">
+        <el-col :span="24" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
           <div
             class="item_table_box"
             style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px;"

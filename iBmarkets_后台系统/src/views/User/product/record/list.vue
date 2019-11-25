@@ -1,5 +1,22 @@
 <template>
   <div class="item_table_box">
+    <!-- 请选择 -->
+    <el-select
+      style="padding-left: 20px; padding-top: 20px; width: 2rem; padding-bottom: .2rem;"
+      size="small"
+      v-model="params.umLogBehavior"
+      :placeholder="$t('form.please')"
+      @change="changeType"
+    >
+      <!-- 购买配套 -->
+      <el-option :label="$t('filters.product_type1')" :value="1"></el-option>
+      <!-- 配套升级 -->
+      <el-option :label="$t('filters.product_type2')" :value="2"></el-option>
+      <!-- 配套退款 -->
+      <el-option :label="$t('filters.product_type3')" :value="3"></el-option>
+      <!-- 提取收益 -->
+      <el-option :label="$t('filters.product_type6')" :value="6"></el-option>
+    </el-select>
     <el-table
       row-class-name="rowClassName"
       header-row-class-name="headerRowClassName"
@@ -15,7 +32,7 @@
       <el-table-column :label="$t('table.mt4Account')">
         <template slot-scope="scope">{{ scope.row.mt4Account }}</template>
       </el-table-column>
-       <!-- 操作前 -->
+      <!-- 操作前 -->
       <el-table-column :label="$t('user_product.text18')">
         <template slot-scope="scope">{{ scope.row.matchingMoneyBefore|FORMATTED_NUMBER }}</template>
       </el-table-column>
@@ -51,9 +68,8 @@ import WatchScreen from "@/mixins/watchScreen.js";
 export default {
   name: "admin_feedback_list",
   mixins: [WatchScreen],
-  inject: ['p',"$main"],
-  components: {
-  },
+  inject: ["p", "$main"],
+  components: {},
   data() {
     return {
       currentPage: 1,
@@ -61,7 +77,8 @@ export default {
       params: {
         pageSize: 10,
         page: 1,
-        userMatchingId: '',
+        userMatchingId: "",
+        umLogBehavior: 1,
       },
       total: 0
     };
@@ -71,15 +88,22 @@ export default {
     vm.fnGetData();
   },
   methods: {
-      TYPE (data) {
-          let vm = this;
-          return vm.$t(`filters.product_type${data}`)
-      },
+    TYPE(data) {
+      let vm = this;
+      return vm.$t(`filters.product_type${data}`);
+    },
+    // 订单状态
+    changeType(val) {
+      let vm = this;
+      vm.params.page = 1;
+      vm.currentPage = 1;
+      vm.fnGetData();
+    },
     // 查看反馈详情
-    fnSeeInfo (data,type) {
-        let vm = this;
-        vm.p.pageType = type;
-        vm.p.info = data;
+    fnSeeInfo(data, type) {
+      let vm = this;
+      vm.p.pageType = type;
+      vm.p.info = data;
     },
     // 每页要展示多少条
     handleSizeChange(val) {
@@ -97,8 +121,9 @@ export default {
     // 获取列表数据
     fnGetData() {
       let vm = this;
-      let params = Object.assign({}, vm.params,{
-        messageStatus: vm.params.messageStatus == -1?'':vm.params.messageStatus
+      let params = Object.assign({}, vm.params, {
+        messageStatus:
+          vm.params.messageStatus == -1 ? "" : vm.params.messageStatus
       });
       vm.$main.loading = true;
       vm.$api.LOGGING_USERMATCHINGLOG(params).then(res => {

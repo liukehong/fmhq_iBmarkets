@@ -34,7 +34,21 @@ export const MATCHING_MT4WITHDRAW = data => {
 // 配套日志
 export const LOGGING_USERMATCHINGLOG = data => {
     return axios({
-        url: `/logging/userMatchingLog?userMatchingId=${data.userMatchingId}&pageNum=${data.page}&pageSize=${data.pageSize}`,
+        url: `/logging/userMatchingLog?userMatchingId=${data.userMatchingId}&pageNum=${data.page}&pageSize=${data.pageSize}&umLogBehavior=${data.umLogBehavior}`,
+        method: 'get',
+    })
+}
+// 业绩查询
+export const LOGGING_GETMONTHSUPERUSERPERFORMANCE = data => {
+    return axios({
+        url: `/logging/getMonthSuperUserPerformance?account=${data.account}&type=${data.type}&date=${data.date}&startTime=${data.startTime}&endTime=${data.endTime}`,
+        method: 'get',
+    })
+}
+// 业绩明细
+export const LOGGING_GETPERFORMANCEDETAIL = data => {
+    return axios({
+        url: `/logging/getPerformanceDetail?account=${data.account}&type=${data.type}&date=${data.date}&startTime=${data.startTime}&endTime=${data.endTime}&pageNum=${data.pageNum}&pageSize=${data.pageSize}`,
         method: 'get',
     })
 }
@@ -43,5 +57,7 @@ export default {
     SYSTEM_GETWIDTHDRAWALAPPLYS,
     MATCHING_REFUNDBANK,
     MATCHING_MT4WITHDRAW,
-    LOGGING_USERMATCHINGLOG
+    LOGGING_USERMATCHINGLOG,
+    LOGGING_GETMONTHSUPERUSERPERFORMANCE,
+    LOGGING_GETPERFORMANCEDETAIL
 }

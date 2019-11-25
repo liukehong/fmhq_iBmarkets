@@ -775,6 +775,11 @@ const en = {
         text7: 'In Refund',
         text8: 'Buy Time',
     },
+    other: {
+        text1: 'Performance',
+        text2: 'Hedging Amount',
+        text3: 'Details Of Performance'
+    },
     // 错误码 Error Code
     error: {
         '0': 'Access request successful', //Access request successful

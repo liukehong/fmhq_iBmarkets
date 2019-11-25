@@ -3,15 +3,19 @@
     <div class="performance_search" style="overflow: hidden;">
       <div class="item_title">{{ PAGE_NAME }}</div>
       <List v-if="pageType == 'list'"></List>
+      <div class="item_title" style="margin-top: .2rem;">{{ $t('menu.performanceSearch1') }}</div>
+      <Performance></Performance>
     </div>
   </transition>
 </template>
 <script>
 import List from "./list";
+import Performance from './performance';
 export default {
   name: "performance_search",
   components: {
-    List
+    List,
+    Performance
   },
   provide() {
     return {
